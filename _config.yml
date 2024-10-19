@@ -36,6 +36,7 @@ theme: minima
 plugins:
   - jekyll-feed
 
+excerpt_separator: <!--more-->
 show_excerpts: true
 
 # Exclude from processing.
