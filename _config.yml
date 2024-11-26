@@ -34,6 +34,8 @@ github_username:  jakemannix
 theme: minima
 plugins:
   - jekyll-feed
+minima:
+  skin: dark 
 
 excerpt_separator: <!--more-->
 show_excerpts: true
