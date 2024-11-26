@@ -2,7 +2,7 @@
 layout: post
 title:  "Another glorious attempt at starting to blog"
 tags: intro meta jekyll
-bluesky_post_uri: https://bsky.app/profile/yetanotheruseless.com/post/3lbqjc3isys2l
+bluesky_post_uri: "https://bsky.app/profile/yetanotheruseless.com/post/3lbqjc3isys2l"
 ---
 Welcome, Bienvenue, おかえり!
 
