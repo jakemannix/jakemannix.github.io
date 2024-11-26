@@ -26,8 +26,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   abstract puzzles and games, testing the boundaries of things (in many,
   many senses of the word).  Sometimes endurance-sport masochist and 
   general lover of the outdoors.
-baseurl: "/blog" # the subpath of your site, e.g. /blog
-url: "https://www.yetanotheruseless.com" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: ""
+url: "https://www.yetanotheruseless.com"
 github_username:  jakemannix
 
 # Build settings
@@ -40,6 +40,9 @@ minima:
 excerpt_separator: <!--more-->
 show_excerpts: true
 
+include: ['static']
+
+permalink: /blog/:year/:month/:day/:title/
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
