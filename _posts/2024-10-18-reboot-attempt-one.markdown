@@ -13,3 +13,5 @@ I don't really speak French (eh... Je comprends un peu, mais je parle moins que 
 --
 
 Why am I blogging?  Is it because I'm missing the good ol' days of LiveJournal (well, yes, but that's not _the_ reason), or do I actually have anything to write about?  I do, in fact have lots of Big Thougths running around in my head, so maybe putting them down would be nice?  I think so.  Will anyone read them?  Don't know!
+
+(note: the comments on this post are powered by Bluesky, but this particular post links to a random recent post of mine, to test the Bluesky Comments functionality.  I will probably remove that link from this post soon, but for now, it's there to test the functionality.)
