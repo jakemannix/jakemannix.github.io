@@ -26,7 +26,7 @@ layout: default
   <!-- Load the dependencies first -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/bluesky-comments@0.3.0/dist/bluesky-comments.umd.js"></script>
+  <script src="https://unpkg.com/bluesky-comments@latest/dist/bluesky-comments.umd.js"></script>
 
 {% if page.tags %}
 <div class="post-tags">
@@ -40,11 +40,8 @@ layout: default
   <div id="bluesky-comments"></div>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const uri = '{{ page.bluesky_post_uri }}';
-    if (uri) {
-      initBlueskyComments('bluesky-comments', uri);
-    } 
-  });
+      initBlueskyComments('bluesky-comments', { author: 'yetanotheruseless.com' });
+    });
 </script>
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
