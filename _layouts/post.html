@@ -28,6 +28,15 @@ layout: default
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/bluesky-comments@0.3.0/dist/bluesky-comments.umd.js"></script>
 
+{% if page.tags %}
+<div class="post-tags">
+  Tags:
+  {% for tag in page.tags %}
+    <a href="/tags#{{ tag }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+  {% endfor %}
+</div>
+{% endif %}
+
   <div id="bluesky-comments"></div>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
