@@ -1,0 +1,45 @@
+---
+---
+
+@import "minima";
+
+// Dark theme colors
+body {
+  background-color: #1a1a1a;
+  color: #e6e6e6;
+}
+
+.site-header {
+  border-top-color: #666;
+  border-bottom-color: #333;
+}
+
+.site-title, .site-title:visited {
+  color: #e6e6e6;
+}
+
+.site-nav .page-link {
+  color: #e6e6e6;
+}
+
+a {
+  color: #4a9eff;
+  &:visited {
+    color: #9b6bff;
+  }
+  &:hover {
+    color: #66b3ff;
+  }
+}
+
+.post-meta {
+  color: #999;
+}
+
+pre, code {
+  background-color: #2b2b2b;
+}
+
+.highlight {
+  background: #2b2b2b;
+}
