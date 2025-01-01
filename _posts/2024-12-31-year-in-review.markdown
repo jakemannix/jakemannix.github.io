@@ -1,0 +1,50 @@
+---
+layout: post
+title: "2024: A Year in Review"
+date: 2024-12-31
+categories: life travel
+---
+
+2024, huh?  I could write about all the crazy AI stuff that's been going on, but everyone's writing about that, and what do I know that they don't?  I may make another post on that subject, but for tonight, let's keep to what went down in my world, before my old man brain forgets it all.  
+
+## Teaching
+
+As I finish up prep for my 2025 class (starting in a few days), I recall that each year since the '20-'21 school year, I've told myself "Never Again", and then promptly sign up to teach "one more time".  But last year, I chose the course subject of "An AI Crash Course", which attempted to go from Zero to "Fine-tune your own LoRA version of a Phi model", which was probably a total failure, but was a lot of fun (and super useful to force myself to do).  So I signed up for teaching again this coming year, even without lying to myself that I wouldn't.  But this year, the course will be different (again), because this field moves too damn fast.
+
+## The Great Summer Adventure
+
+The big thing of this year, of course, was the long-planned "college visits" trip for the kiddo, who informed us last year that she was applying to schools in Japan, the UK, Venice, and "maybe" a few places in the US.  So we had a long summer epic coming our way.
+
+### Japan: From End to End in 3 weeks
+
+Tokyo was organized chaos - the marvel of engineering that is the metro system (made magically easy via Google Maps and occasional need for Google Translate/Lens), the life-changing experience of Toto toilets, and insanity of the Shibuya Scramble Crossing (you have to experience it to understand it). Other stuff seen in Tokyo in those first few days: the Shogun's gardens with "the 300-year tree", the room which Miyazaki modeled the bath house entrance room from Spirited Away, and a several-hundred year old unagi house - you order unagi on rice there, because that's basically all they sell, and because its *amazing*.  I had the "ghost eel" (!!!). Kiddo wasn't really planning to go to school in Tokyo, but we visited Waseda University there just because they do have a solid program taught in English, so we might as well take a tour.  It's a pretty cool campus in a nice part of town (we didn't see many "not nice" parts of Tokyo, actually.  Just "busier" parts, I guess).
+
+Kyoto.  OMG, Kyoto. Zen gardens, bamboo forests, the wild-roaming monkey-filled mountain park. Matcha House with matcha everything - from parfaits to shaved ice to matcha beer (which was really good, actually!). The infinite torii gates of Fushimi Inari shrine (but, um, go at like 5am while jetlagged, unless you just want to be crammed in with 100,000 other tourists).  The random find of a tiny hole-in-the-wall "sushi" place (with 6 seats) where we had a 6 course tasting menu where almost everything was made with yuba: the freshly skimmed curd off the top of a simmering pot of soy milk, folded again and again and mixed with... magic, I can only assume.  Was actually amazing.
+
+We took a day trip to visit Nagoya University, which was a large, nice, semi-surburban campus and seemed to have a pretty cool program (but geared more toward students who *aren't* native English speakers to get more English experience, rather than native English speakers wanting to learn while in Japan - this seemed to be a theme we found a few times).
+
+Back on the Shinkansen (did I mention the joy that is "ekibento" (literally: box lunch for the train)?  It's awesome.  You can get bad stuff, but the good stuff is super great.  Sushi, as fast food, on a train moving 300kph?!?  Sorcery.) to Hiroshima (where we stayed in a traditional Japanese house where the owner's parents had set up the house to entertain the grandkids in an extremely intense way: there were educational games set up all over the place, and an odd "convenience store" where you can honor-system leave money to buy random traditional Japanese candies/cookies/snacks), where we visited Hiroshima Univerity (which was super remote - seemed like it takes you maybe an hour to get from campus to... almost anywhere) and then on Fukuoka (the largest city of the island of Kyushu) where we discovered an endless underground mall (probably 10 blocks long?) and took a personalized class on making miso paste from scratch (it's still fermenting, slowly, these 6 months later).  A plane flight from there took us up to Hokkaido and the University there, which reminded us, oddly, of UW, and one more plane back to Tokyo so we could day-trip up to Sendai to visit the impressive Tohoku University's "Advanced Molecular Chemistry" program (which has now topped the list as Choice Number 1 for uni hopes and dreams), and go chothes shopping in the mall-on-top-of-the-train station (note for visiting Japan: in every city we went to, "$name_of_city Train Station" inevitably has an extremely fancy hotel, an above-ground mall, an underground mall, and *good* restaurants, all in the same building as the train station.  If you don't know where to go / eat / shop / stay in a new city in Japan, the train station is a good bet - very much unlike in the US or most parts of Europe).  We only had one final day in Tokyo before flying home, so we packed in a mindbending trip to TeamLabs Borderless, which I highly recommend.  Maybe I should insert some pics here?  Yeah, I should, but that'll take more time than I have left in 2024.
+
+### European Sojourn
+
+After a surprisingly jet-lag-free layover in Seattle (when flying from Japan to EU, staying 2 days in Seattle somehow magically makes things work, if you just sleep as if you're already on EU time), we embarked on the European leg of our journey. In Marseille and the Luberon region, we reunited with family (despite a disastrous encounter with bedbugs: Do Not Recommend) and rexplored the artistic Chateau La Coste. The Luberon treated us to a random river waterfall-boat-race (yeah, really) through the middle of downtown L'Isle-sur-la-Sorgue, a visit to Ridley Scott's vineyard, and a quick "nostalgia stopover" in Oppede le Vieux.
+
+The UK portion of our trip began in Lincoln, where we all got to experience the true Full English breakfast, fish and chips, and many pints of ale, and get a pretty sweet tour of the  Celtic-Roman-British (Llyndūn: hillfort-by-the-pool --> Lindon --> Lindon Colonia --> Lincoln) castle and its cathedral (random factoid about said cathedral: at completion of its spire, it became the first new building to claim the title of "tallest manmade structure in the world" since the completion of the Great Pyramid of Giza.  Sadly an earthquake later took down this original spire.  Also to note: it has housed one of the 5 remaining original copies of the Magna Carta... since it was written!).  The University of Lincoln is also up at the top of the rankings for where my offspring will spring off to, as their nicely modernized program (in a cute old town with such great history) pretty sweetly marries science and art/art history in somethig tailored to kiddo's interest in "The Science of Cultural Preservation".  Edinburgh was a long drive from Lincoln (stopping just for a peek in Cambridge, and barely a drive-by at the University of York), but was gorgeous (I have to remind myself, it was summer!).  Arthur's seat and the Salisbury Crags are a cool way to survey the town.
+
+Venice's Biennale exhibition "Etrangers Partout" was... intense, and overwhelming, and somethign to be seen more slowly.  But I did take a lot of pictures, which give a better feel than I can do with words. And when in Venice, one must always drop by Peggy's house (i.e. the Guggenheim.  Aaaah yes, this is probably my favorite museum in the world.  Ok the Tate Modern and Musee d'Orsay are up there, but they're so damn big.  The Gug in Venice is... *dense*.  So good). Our European journey concluded in Aix-en-Provence, hiking Mt. St. Victoire to meet a stinky goat who wanted to eat my snacks and/or push me off a cliff.  Mostly avoided both issues.
+
+## Professional and Personal Growth
+
+I should talk about the new job, but it's too new, so I'll hold off on that for now.  I could talk about the old job, but... "one does not speak ill of the dead" / "if you don't have anything nice to say, don't say anything at all", or something to that effect, so we'll have to say "ask me over beers".
+
+I could talk about remodel, but a) that's boring as shit, even if you're doing it, and b) it's been going on almost a decade at thsi point, so jfc let's not, other than to say "almsot done" (hah, yeah).
+
+Thankfully, I don't need to write up more about my fitness / masochism-fetish / endurance stuff, because I wrote those up already: https://www.strava.com/athletes/7122112/posts/33410312 (see also: https://www.strava.com/activities/12861143956 and https://www.strava.com/activities/12861717245 ).  Looking back, it's crazy to think that I did that on about 13 weeks (including a 2-week taper) of only about 25 miles per week, and only about three runs over 3 hours? Given that perparation for my DIY "Wa2Wa 100k", I'm amazed I get my A- for doing ~91k of it in (mostly) one piece.
+
+But the year couldn't end there, now could it?  NeurIPS with sixteen thousand of my closest nerd frens, amirite?  Oof, that'll have to be a review for another time.  And after that, my first trip to Chicago in... decades, where family time, steaks, jazz, and deep-dish pizza were... slightly dampened by getting hit with a Mac truck of a winter flu. Nevertheless, the Art Institute of Chicago cheered me up before I paid an arm and a leg for a couple bags of IV electrolytes, vitamins, and painkillers to help me survive my plane trip back home. 
+
+So I guess 2024 was... eventful.  I'll need to update this with a photoblog form of it, because I *did* remember to take pics.  So yay.  I'll have to do some kind of collage-y thingee.  Or like at least an annotated album.
+
+Ok.  2025 awaits, in like, 17 minutes.  Let's publish this baby, so I can say g'night gracie.
+
+(goodnight gracie!)
