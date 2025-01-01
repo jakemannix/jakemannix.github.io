@@ -7,6 +7,8 @@ categories: life travel
 
 2024, huh?  I could write about all the crazy AI stuff that's been going on, but everyone's writing about that, and what do I know that they don't?  I may make another post on that subject, but for tonight, let's keep to what went down in my world, before my old man brain forgets it all.  
 
+<!--more-->
+
 ## Teaching
 
 As I finish up prep for my 2025 class (starting in a few days), I recall that each year since the '20-'21 school year, I've told myself "Never Again", and then promptly sign up to teach "one more time".  But last year, I chose the course subject of "An AI Crash Course", which attempted to go from Zero to "Fine-tune your own LoRA version of a Phi model", which was probably a total failure, but was a lot of fun (and super useful to force myself to do).  So I signed up for teaching again this coming year, even without lying to myself that I wouldn't.  But this year, the course will be different (again), because this field moves too damn fast.
