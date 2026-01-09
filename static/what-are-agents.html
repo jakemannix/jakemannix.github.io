@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Are LLM Agents Really?</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+    <style>
+        :root {
+            --r-background-color: #1a1a2e;
+            --r-main-color: #eee;
+            --r-heading-color: #00d4ff;
+            --r-link-color: #ff6b6b;
+            --r-selection-background-color: #ff6b6b;
+        }
+        .reveal {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+            font-weight: 700;
+        }
+        .reveal h1 {
+            font-size: 2.2em;
+        }
+        .reveal h2 {
+            font-size: 1.6em;
+        }
+        .reveal pre {
+            width: 100%;
+            font-size: 0.55em;
+        }
+        .reveal code {
+            background: #2d2d4a;
+            padding: 0.1em 0.3em;
+            border-radius: 4px;
+        }
+        .reveal pre code {
+            padding: 1em;
+            max-height: 500px;
+        }
+        .reveal table {
+            margin: 0 auto;
+            font-size: 0.7em;
+        }
+        .reveal table th {
+            background: #00d4ff;
+            color: #1a1a2e;
+            font-weight: 600;
+        }
+        .reveal table td, .reveal table th {
+            padding: 0.5em 1em;
+            border: 1px solid #444;
+        }
+        .reveal table tr:nth-child(even) {
+            background: #2d2d4a;
+        }
+        .chatbox {
+            background: #2d2d4a;
+            border-radius: 12px;
+            padding: 1em;
+            text-align: left;
+            font-size: 0.65em;
+            margin: 0.5em auto;
+            max-width: 800px;
+        }
+        .chatbox .user {
+            color: #4ecdc4;
+            margin-bottom: 0.5em;
+        }
+        .chatbox .assistant {
+            color: #ffe66d;
+        }
+        .chatbox .agent-thought {
+            color: #888;
+            font-style: italic;
+            margin: 0.3em 0;
+            padding-left: 1em;
+            border-left: 2px solid #555;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1em 1.5em;
+            border-radius: 12px;
+            font-size: 1.2em;
+            margin: 1em auto;
+            max-width: 700px;
+        }
+        .quote-box {
+            border-left: 4px solid #00d4ff;
+            padding-left: 1em;
+            font-style: italic;
+            color: #ccc;
+            margin: 1em 0;
+        }
+        .diagram {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.5em;
+            line-height: 1.4;
+            background: #0d0d1a;
+            padding: 1em;
+            border-radius: 8px;
+            text-align: left;
+            display: inline-block;
+        }
+        .fragment.highlight-current-blue.visible {
+            color: #00d4ff;
+        }
+        .two-column {
+            display: flex;
+            gap: 2em;
+            align-items: flex-start;
+        }
+        .two-column > div {
+            flex: 1;
+        }
+        .small {
+            font-size: 0.7em;
+        }
+        .tiny {
+            font-size: 0.5em;
+            color: #888;
+        }
+        ul {
+            list-style-type: none;
+        }
+        ul li::before {
+            content: "→ ";
+            color: #00d4ff;
+        }
+        .reveal section img {
+            border: none;
+            box-shadow: none;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- ==================== TITLE ==================== -->
+            <section>
+                <h1>What Are LLM Agents Really?</h1>
+                <p style="color: #888; font-size: 0.8em;">Building AI Agents: English as the Next Big Programming Language</p>
+                <p style="color: #666; font-size: 0.6em;">Week 1, Day 3</p>
+                <aside class="notes">
+                    This lecture bridges from "what are these things" to "how do they actually work."
+                    By the end, students should understand the wrapper program pattern and be ready
+                    to build their own ReAct agent.
+                </aside>
+            </section>
+
+            <!-- ==================== PART 0: WHY ARE WE HERE ==================== -->
+            <section>
+                <section>
+                    <h2>Part 0</h2>
+                    <h1 style="color: #ff6b6b;">Why Are We Even Here?</h1>
+                </section>
+
+                <section>
+                    <h2>You've All Used a Chatbot</h2>
+                    <p>ChatGPT, Claude, Gemini...</p>
+                    <p class="fragment">You ask. It answers.</p>
+                    <p class="fragment" style="color: #ff6b6b;">But what happens when you ask it to <em>do</em> something?</p>
+                    <aside class="notes">
+                        Start with shared experience. Everyone has used these tools.
+                        The key insight we're building toward: there's a ceiling.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>The Chatbot Ceiling</h2>
+                    <div class="chatbox">
+                        <div class="user"><strong>You:</strong> Book me a table at a good Italian restaurant for tonight</div>
+                        <div class="assistant fragment"><strong>ChatGPT:</strong> I can't make reservations directly, but here are some highly-rated Italian restaurants in your area:
+                        <br><br>
+                        1. Trattoria Roma - 4.7★<br>
+                        2. Bella Napoli - 4.5★<br><br>
+                        You can book via OpenTable or call them directly.</div>
+                    </div>
+                    <p class="fragment" style="color: #ff6b6b; margin-top: 1em;">It gave you <em>information</em>. It didn't <em>do the thing</em>.</p>
+                    <aside class="notes">
+                        This is the fundamental limitation. The chatbot is helpful—it researched,
+                        it gave good info—but YOU still have to do the actual work.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>What If It Could Actually Do It?</h2>
+                    <div class="chatbox">
+                        <div class="user"><strong>You:</strong> Book me a table at a good Italian restaurant for tonight, 7pm, 2 people</div>
+                        <div class="agent-thought fragment">→ searching restaurants...</div>
+                        <div class="agent-thought fragment">→ checking ratings and reviews...</div>
+                        <div class="agent-thought fragment">→ querying OpenTable API...</div>
+                        <div class="agent-thought fragment">→ found availability at Trattoria Roma...</div>
+                        <div class="agent-thought fragment">→ making reservation...</div>
+                        <div class="assistant fragment"><strong>Agent:</strong> Done! Table for 2 at Trattoria Roma, 7pm tonight.<br>
+                        Confirmation #12345. Dress code: smart casual.<br>
+                        I've added it to your calendar.</div>
+                    </div>
+                    <aside class="notes">
+                        This is what an agent does. Notice the steps—it's not just answering,
+                        it's working through a multi-step process to actually complete the task.
+                    </aside>
+                </section>
+
+                <section>
+                    <div class="highlight-box">
+                        <strong>That's an agent.</strong><br>
+                        It doesn't just answer — it <em>completes the task</em>.
+                    </div>
+                    <aside class="notes">
+                        This is the core distinction we'll build on for the rest of the lecture.
+                    </aside>
+                </section>
+            </section>
+
+            <!-- ==================== PART 1: THE SPECTRUM ==================== -->
+            <section>
+                <section>
+                    <h2>Part 1</h2>
+                    <h1 style="color: #4ecdc4;">The Spectrum</h1>
+                    <p>Bot → Chatbot → Agent</p>
+                </section>
+
+                <section>
+                    <h2>Not All "AI" Is the Same</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>What It Does</th>
+                                <th>Autonomy</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment">
+                                <td>Rule-based bot</td>
+                                <td>Follows scripts</td>
+                                <td>None</td>
+                                <td>IVR phone trees</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>ML Chatbot</td>
+                                <td>Pattern matches</td>
+                                <td>Minimal</td>
+                                <td>Old customer service</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>LLM Chatbot</td>
+                                <td>Generates responses</td>
+                                <td>Low</td>
+                                <td>ChatGPT (no tools)</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>LLM + Tools</td>
+                                <td>Accesses external info</td>
+                                <td>Medium</td>
+                                <td>ChatGPT with search</td>
+                            </tr>
+                            <tr class="fragment" style="background: #1a4a1a;">
+                                <td><strong>LLM Agent</strong></td>
+                                <td><strong>Pursues goals</strong></td>
+                                <td><strong>High</strong></td>
+                                <td><strong>Devin, Claude computer use</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <aside class="notes">
+                        Walk through each level. The key jump is at the bottom—from
+                        "accessing info" to "pursuing goals autonomously."
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>The Key Distinction</h2>
+                    <div class="highlight-box" style="background: linear-gradient(135deg, #2d3436 0%, #000000 100%); border: 2px solid #00d4ff;">
+                        <strong style="color: #00d4ff;">Chatbots respond.</strong><br>
+                        <strong style="color: #ff6b6b;">Agents pursue.</strong>
+                    </div>
+                    <div class="two-column fragment" style="margin-top: 1em; font-size: 0.8em;">
+                        <div>
+                            <h3 style="color: #00d4ff;">Chatbot</h3>
+                            <p>You drive.<br>It reacts to each input.</p>
+                        </div>
+                        <div>
+                            <h3 style="color: #ff6b6b;">Agent</h3>
+                            <p>You give a goal.<br>It figures out the steps.</p>
+                        </div>
+                    </div>
+                    <aside class="notes">
+                        This is the mental model shift. With a chatbot, you're doing the planning.
+                        With an agent, you delegate the planning too.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>What Makes Something "Agentic"?</h2>
+                    <p class="small" style="color: #888;">From multi-agent systems literature:</p>
+                    <ol style="font-size: 0.8em; list-style-type: decimal;">
+                        <li class="fragment"><strong>Autonomy</strong> — Makes decisions without approval at each step</li>
+                        <li class="fragment"><strong>Goal-directedness</strong> — Works toward an objective, not just responding</li>
+                        <li class="fragment"><strong>Reactivity</strong> — Responds to environment (tool results, errors)</li>
+                        <li class="fragment"><strong>Proactivity</strong> — Takes initiative, doesn't wait to be told</li>
+                        <li class="fragment"><strong>Persistence</strong> — Can work over time, across sessions</li>
+                    </ol>
+                    <p class="fragment" style="margin-top: 1em; color: #888;">
+                        A chatbot might have #3.<br>
+                        <span style="color: #00d4ff;">An agent has all five.</span>
+                    </p>
+                    <aside class="notes">
+                        These come from academic literature on agents—predates LLMs.
+                        The definitions still apply. A thermostat has #3 (reactive).
+                        An LLM agent should have all five.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Concrete Example: Research Task</h2>
+                    <div class="two-column" style="font-size: 0.65em;">
+                        <div>
+                            <h3 style="color: #00d4ff;">Chatbot</h3>
+                            <div class="chatbox" style="font-size: 1em;">
+                                <div class="user"><strong>You:</strong> What are the latest developments in quantum computing?</div>
+                                <div class="assistant"><strong>Bot:</strong> [Generates plausible-sounding summary from training data that's 18 months old]</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 style="color: #ff6b6b;">Agent</h3>
+                            <div class="chatbox" style="font-size: 1em;">
+                                <div class="user"><strong>You:</strong> Research latest quantum computing developments, write a 1-page summary with citations</div>
+                                <div class="agent-thought">→ I need recent info, searching arxiv...</div>
+                                <div class="agent-thought">→ Found 15 relevant papers...</div>
+                                <div class="agent-thought">→ Reading and synthesizing...</div>
+                                <div class="agent-thought">→ Key themes emerging...</div>
+                                <div class="assistant"><strong>Agent:</strong> Here's your summary based on 12 sources from the past 3 months...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="fragment" style="margin-top: 0.5em;">The agent did the <em>work</em>, not just the <em>answering</em>.</p>
+                </section>
+            </section>
+
+            <!-- ==================== PART 2: WHY NOW ==================== -->
+            <section>
+                <section>
+                    <h2>Part 2</h2>
+                    <h1 style="color: #ffe66d;">Why Agents? Why Now?</h1>
+                </section>
+
+                <section>
+                    <h2>What Changed?</h2>
+                    <p class="small" style="color: #888;">Agents weren't possible until recently because...</p>
+                    <table style="font-size: 0.75em;">
+                        <thead>
+                            <tr>
+                                <th>Requirement</th>
+                                <th>What Changed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment">
+                                <td>Reasoning ability</td>
+                                <td>LLMs got good enough to plan multi-step sequences</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>Tool use</td>
+                                <td>Function calling became reliable (2023+)</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>Memory</td>
+                                <td>Context windows: 4K → 128K → 1M+ tokens</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>Cost</td>
+                                <td>100x reduction makes iteration affordable</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>Ecosystem</td>
+                                <td>APIs, frameworks, standards matured</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <aside class="notes">
+                        Each of these was a blocker. Even 2 years ago, you couldn't reliably
+                        get an LLM to call tools in the right format. Now it's routine.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>The Capability Explosion</h2>
+                    <p class="small" style="color: #888;">METR research on "task horizons":</p>
+                    <table style="font-size: 0.9em;">
+                        <tbody>
+                            <tr class="fragment">
+                                <td>2023</td>
+                                <td>~1 minute tasks</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>2024</td>
+                                <td>~1 hour tasks</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>2025</td>
+                                <td>Multi-hour tasks</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="fragment" style="margin-top: 1em; color: #00d4ff;">
+                        Doubling every ~7 months
+                    </p>
+                    <aside class="notes">
+                        This is from METR's research. "Task horizon" = how long a task
+                        can the model reliably complete. The growth is exponential.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>What Agents Enable</h2>
+                    <p class="small" style="color: #888;">Things that were impossible (or required dedicated software):</p>
+                    <ul style="font-size: 0.8em;">
+                        <li class="fragment"><strong>Coding:</strong> "Fix this bug across 50 files"</li>
+                        <li class="fragment"><strong>Research:</strong> "Analyze these 100 papers, find common themes"</li>
+                        <li class="fragment"><strong>Operations:</strong> "Monitor logs, alert me to anomalies"</li>
+                        <li class="fragment"><strong>Personal:</strong> "Plan my Japan trip, book everything"</li>
+                        <li class="fragment"><strong>Business:</strong> "Process invoices, update the spreadsheet"</li>
+                    </ul>
+                    <p class="fragment highlight-box" style="font-size: 0.9em;">
+                        Common thread: <strong>Multi-step tasks requiring judgment</strong>
+                    </p>
+                </section>
+            </section>
+
+            <!-- ==================== PART 3: HOW IT WORKS ==================== -->
+            <section>
+                <section>
+                    <h2>Part 3</h2>
+                    <h1 style="color: #ff6b6b;">How Agents Actually Work</h1>
+                </section>
+
+                <section>
+                    <h2>The Dirty Secret</h2>
+                    <p style="font-size: 1.3em;">Here's the thing:</p>
+                    <p class="fragment highlight-box" style="background: #4a1a1a; border: 2px solid #ff6b6b;">
+                        <strong>LLMs can't actually do anything.</strong>
+                    </p>
+                    <div class="fragment">
+                        <p style="margin-top: 1em;">They're text-in, text-out machines. They can't:</p>
+                        <ul style="font-size: 0.8em;">
+                            <li>Search the web</li>
+                            <li>Run code</li>
+                            <li>Send emails</li>
+                            <li>Access databases</li>
+                            <li>Make API calls</li>
+                        </ul>
+                    </div>
+                    <p class="fragment" style="color: #00d4ff; margin-top: 1em;">So how do agents work?</p>
+                    <aside class="notes">
+                        This is the key insight. Students often think LLMs have special powers.
+                        They don't. They generate text. That's it.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>The Wrapper Program</h2>
+                    <p class="small">Everything you see in ChatGPT is an <em>application</em> that wraps the LLM:</p>
+                    <pre class="diagram" style="font-size: 0.45em;">
+┌──────────────────────────────────────────────────────────┐
+│                    WRAPPER PROGRAM                        │
+│  ┌────────────────────────────────────────────────────┐  │
+│  │              CONTEXT WINDOW                         │  │
+│  │                                                     │  │
+│  │  • System instructions                              │  │
+│  │  • Memories / retrieved context                     │  │
+│  │  • Tool definitions                                 │  │
+│  │  • Conversation history                             │  │
+│  │                                                     │  │
+│  │  ─────────────────────────────────────────────────  │  │
+│  │  → MODEL GENERATES NEXT TOKENS HERE →               │  │
+│  └────────────────────────────────────────────────────┘  │
+│                                                           │
+│    Wrapper parses output, executes tools,                 │
+│    injects results, loops until done                      │
+└──────────────────────────────────────────────────────────┘</pre>
+                    <aside class="notes">
+                        This diagram is the mental model for the whole course.
+                        Everything we learn is about what goes into that context window
+                        and how the wrapper interprets what comes out.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Tool Calling Is Just... Text</h2>
+                    <p class="small">When an LLM "calls a function," it's generating structured text:</p>
+                    <pre><code class="language-json">{
+  "tool": "search_web",
+  "arguments": {
+    "query": "best italian restaurants seattle"
+  }
+}</code></pre>
+                    <div class="fragment">
+                        <p style="margin-top: 1em;">The <strong>wrapper program</strong>:</p>
+                        <ol style="font-size: 0.75em;">
+                            <li>Parses this text</li>
+                            <li>Actually calls the API</li>
+                            <li>Gets the result</li>
+                            <li>Injects it back into the prompt</li>
+                            <li>Asks the LLM what to do next</li>
+                        </ol>
+                    </div>
+                    <p class="fragment" style="color: #ff6b6b; margin-top: 0.5em;">
+                        The LLM has no special powers. It's just <em>very good at generating the right text</em>.
+                    </p>
+                </section>
+
+                <section>
+                    <h2>The Agent Loop</h2>
+                    <pre class="diagram" style="font-size: 0.55em;">
+        ┌──────────────────────────────────────────┐
+        │                                          │
+        │   ┌─────────┐          ┌─────────┐      │
+        │   │  THINK  │ ───────▶ │   ACT   │      │
+        │   └─────────┘          └────┬────┘      │
+        │        ▲                    │           │
+        │        │                    ▼           │
+        │        │              ┌─────────┐       │
+        │        └───────────── │ OBSERVE │       │
+        │                       └─────────┘       │
+        │                                          │
+        │            (repeat until done)           │
+        └──────────────────────────────────────────┘</pre>
+                    <p class="fragment" style="margin-top: 1em;">
+                        This is the <strong style="color: #00d4ff;">ReAct pattern</strong>: Reasoning + Acting, interleaved.
+                    </p>
+                    <p class="tiny fragment">Yao et al., 2022 — "ReAct: Synergizing Reasoning and Acting in Language Models"</p>
+                    <aside class="notes">
+                        ReAct is the foundation. Cite the paper. Students will implement this
+                        pattern from scratch for their weekend assignment.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Trace Through a Real Example</h2>
+                    <p class="small" style="color: #888;">Task: "Who won more Grammy awards — Taylor Swift or Beyoncé?"</p>
+                    <pre style="font-size: 0.5em; text-align: left;"><code class="language-text" data-noescape><span class="fragment"><span style="color: #ffe66d;">Thought:</span> I need to find Grammy counts for both artists. Let me search.
+<span style="color: #ff6b6b;">Action:</span> search("Taylor Swift total Grammy awards")
+<span style="color: #4ecdc4;">Observation:</span> Taylor Swift has won 14 Grammy Awards as of 2024...</span>
+
+<span class="fragment"><span style="color: #ffe66d;">Thought:</span> Got Taylor's count (14). Now I need Beyoncé's.
+<span style="color: #ff6b6b;">Action:</span> search("Beyoncé total Grammy awards")
+<span style="color: #4ecdc4;">Observation:</span> Beyoncé has won 32 Grammy Awards, the most by any artist...</span>
+
+<span class="fragment"><span style="color: #ffe66d;">Thought:</span> Beyoncé (32) > Taylor Swift (14). I can answer now.
+<span style="color: #ff6b6b;">Action:</span> finish("Beyoncé has won more Grammys (32) vs Taylor Swift (14).")</span></code></pre>
+                    <aside class="notes">
+                        Walk through each step. Note how the reasoning traces let us SEE
+                        the model's logic—this is key for debugging and trust.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>The Code Is Simpler Than You Think</h2>
+                    <pre><code class="language-python" data-line-numbers="|1-2|4-5|7-8|10-11|13-15|17">def run_agent(query, tools, max_steps=10):
+    history = []
+    
+    for step in range(max_steps):
+        # Build prompt from current state
+        prompt = build_prompt(query, history, tools)
+        
+        # Get LLM's response
+        response = llm.complete(prompt)
+        
+        # Parse for tool calls
+        action = parse_action(response)
+        
+        if action.tool == "finish":
+            return action.argument
+        
+        # Execute tool and observe result
+        result = execute_tool(action.tool, action.argument)
+        history.append((action, result))
+    
+    return "Max steps reached"</code></pre>
+                    <p class="fragment" style="color: #00d4ff; margin-top: 0.5em;">
+                        That's it. Everything else is details.
+                    </p>
+                    <aside class="notes">
+                        This is the skeleton of their weekend assignment.
+                        Emphasize how simple the core loop is.
+                    </aside>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <div class="highlight-box">
+                        By end of Week 1, you will have built a working ReAct agent from scratch.
+                    </div>
+                    <div class="fragment" style="margin-top: 1em;">
+                        <p>Not using frameworks or tutorials</p>
+                        <p style="color: #00d4ff;">Try to do it yourself for understanding:</p>
+                        <ul style="font-size: 0.8em;">
+                            <li>How prompts are constructed</li>
+                            <li>How tool calls are parsed</li>
+                            <li>How the loop executes</li>
+                            <li>Why it sometimes fails</li>
+                        </ul>
+                    </div>
+                    <p class="fragment" style="margin-top: 1em; color: #888;">
+                        <em>Then</em> we'll show you the frameworks—and you'll understand what they're abstracting.
+                    </p>
+                </section>
+            </section>
+
+            <!-- ==================== PART 5: DISCUSSION ==================== -->
+            <section>
+                <section>
+                    <h2>Part 4</h2>
+                    <h1 style="color: #ffe66d;">Check Your Understanding</h1>
+                </section>
+
+                <section>
+                    <h2>Discussion</h2>
+                    <ol style="font-size: 0.9em;">
+                        <li class="fragment">What's the difference between ChatGPT (no tools) and an agent?</li>
+                        <li class="fragment">Can an LLM "search the web"? What actually happens?</li>
+                        <li class="fragment">Why might an agent fail at a task even if the LLM is smart?</li>
+                    </ol>
+                    <aside class="notes">
+                        Give them time to discuss. These questions test the core concepts.
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Classify These Systems</h2>
+                    <p class="small" style="color: #888;">Is it a chatbot, assistant, or agent? (Or something else?)</p>
+                    <div class="two-column" style="font-size: 0.8em;">
+                        <ul>
+                            <li class="fragment">Siri</li>
+                            <li class="fragment">GitHub Copilot (autocomplete)</li>
+                            <li class="fragment">GitHub Copilot Workspace</li>
+                            <li class="fragment">A thermostat</li>
+                        </ul>
+                        <ul>
+                            <li class="fragment">Alexa</li>
+                            <li class="fragment">Self-driving car</li>
+                            <li class="fragment">Email spam filter</li>
+                            <li class="fragment">Devin</li>
+                        </ul>
+                    </div>
+                    <p class="fragment" style="margin-top: 1em; color: #888;">
+                        (Discuss: these exist on a spectrum!)
+                    </p>
+                    <aside class="notes">
+                        This is tricky—many of these are ambiguous.
+                        Siri: mostly assistant, some agent-like features.
+                        Copilot autocomplete: just a tool.
+                        Copilot Workspace: more agentic.
+                        Thermostat: reactive but not intelligent.
+                        Self-driving car: very agentic!
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>What Comes Next</h2>
+                    <table style="font-size: 0.8em;">
+                        <tbody>
+                            <tr>
+                                <td style="color: #888;">Today</td>
+                                <td>Understanding agents</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td style="color: #00d4ff;">Tomorrow</td>
+                                <td>Tools deep-dive + building your first tool</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td style="color: #ffe66d;">Weekend (due Monday)</td>
+                                <td>Assignment: Build your own ReAct agent</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td style="color: #ff6b6b;">Monday</td>
+                                <td>MCP integration (the "USB standard for AI tools")</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td style="color: #888;">Week 2</td>
+                                <td>Memory systems — how agents remember</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h2>Questions?</h2>
+                </section>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            showSlideNumber: 'speaker',
+            transition: 'slide',
+            transitionSpeed: 'fast',
+            plugins: [ RevealNotes, RevealHighlight ],
+            // Presentation settings
+            width: 1280,
+            height: 720,
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 1.5
+        });
+    </script>
+</body>
+</html>
